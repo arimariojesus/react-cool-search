@@ -1,5 +1,5 @@
 {
-  "name": "@arijesus/use-web-animations",
+  "name": "use-search",
   "version": "0.0.1",
   "description": "React hook for highly-performant search objects on a list.",
   "license": "MIT",
