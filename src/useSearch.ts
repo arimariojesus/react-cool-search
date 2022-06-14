@@ -10,14 +10,15 @@ import React, {
 import _debounce from './debounce';
 import { filterCollection } from './filterCollection';
 import { hasOnlySpaces } from './hasOnlySpaces';
+import useLatest from './useLatest';
 
-type Status = 'IDLE' | 'OK' | 'NOT_FOUND';
+export type Status = 'IDLE' | 'OK' | 'NOT_FOUND';
 type Fields<T> = Array<keyof T>;
 
-interface SearchState<T> {
+type SearchState<T> = {
   status: Status;
   data: T[];
-}
+};
 
 export interface Options<T> {
   debounce?: number;
@@ -25,7 +26,7 @@ export interface Options<T> {
   fields?: Fields<T>;
 }
 
-interface Return<T> {
+export interface Return<T> {
   data: T[];
   status: Status;
   query: string;
@@ -38,7 +39,7 @@ const useSearch = <T>(
   {
     debounce = 300,
     initialQuery = '',
-    fields = Object.keys(collection) as Fields<T>,
+    fields = Object.keys(collection[0]) as Fields<T>,
   }: Options<T> = {},
 ): Return<T> => {
   const isMounted = useRef(false);
@@ -46,6 +47,8 @@ const useSearch = <T>(
     status: 'IDLE',
     data: collection,
   });
+  const collectionRef = useLatest(collection);
+  const fieldsRef = useLatest(fields);
   const [query, setQuery] = useState(initialQuery);
 
   const handleChange = useCallback(
@@ -74,19 +77,25 @@ const useSearch = <T>(
     [debounce],
   );
 
-  useEffect(
-    () => debouncedFilterCollection(query, collection, fields),
-    [query, collection, fields, debouncedFilterCollection],
-  );
+  useEffect(() => {
+    if (collectionRef.current && fieldsRef.current) {
+      debouncedFilterCollection(
+        query,
+        collectionRef.current,
+        fieldsRef.current,
+      );
+    }
+  }, [query, collectionRef, fieldsRef, debouncedFilterCollection]);
 
   useEffect(() => {
     isMounted.current = true;
+    const collections = collectionRef.current || [];
 
     return () => {
       isMounted.current = false;
-      setSearch({ data: collection, status: 'IDLE' });
+      setSearch({ data: collections, status: 'IDLE' });
     };
-  }, [collection]);
+  }, [collectionRef]);
 
   return {
     ...search,
