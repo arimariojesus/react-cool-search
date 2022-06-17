@@ -23,7 +23,7 @@ const collection: ITest[] = [
   {
     foo: 'foo 2',
     bar: 'bar 2',
-    value: 2,
+    value: 1,
   },
 ];
 
@@ -78,7 +78,7 @@ describe('useSearch', () => {
   it('should returns filtered collection correctly if fields is passed', () => {
     const {
       current: { data: filteredCollection },
-    } = renderHelper({ initialQuery: '2', fields: ['value'] });
+    } = renderHelper({ initialQuery: '1', fields: ['value'] });
     expect(filteredCollection).toEqual([collection[1]]);
   });
 });
