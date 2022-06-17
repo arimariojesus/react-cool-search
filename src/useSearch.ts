@@ -43,13 +43,15 @@ const useSearch = <T>(
   }: Options<T> = {},
 ): Return<T> => {
   const isMounted = useRef(false);
+  const [query, setQuery] = useState(initialQuery);
   const [search, setSearch] = useState<SearchState<T>>({
-    status: 'IDLE',
-    data: collection,
+    status: initialQuery ? 'OK' : 'IDLE',
+    data: initialQuery
+      ? filterCollection(query, collection, fields)
+      : collection,
   });
   const collectionRef = useLatest(collection);
   const fieldsRef = useLatest(fields);
-  const [query, setQuery] = useState(initialQuery);
 
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement> | string) => {
