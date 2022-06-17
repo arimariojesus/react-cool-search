@@ -1,8 +1,14 @@
+import { hasOnlySpaces } from './hasOnlySpaces';
+
 export const filterCollection = <T>(
   query: string,
   collection: T[],
-  fields: Array<keyof T>,
+  fields: Array<keyof T> = Object.keys(collection[0] || []) as Array<keyof T>,
 ): T[] => {
+  if (!query || hasOnlySpaces(query)) {
+    return collection;
+  }
+
   const getNormalizedValue = (value: any): string =>
     value
       .toString()
