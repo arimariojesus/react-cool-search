@@ -39,7 +39,7 @@ const useSearch = <T>(
   {
     debounce = 300,
     initialQuery = '',
-    fields = Object.keys(collection[0]) as Fields<T>,
+    fields = Object.keys(collection[0] || []) as Fields<T>,
   }: Options<T> = {},
 ): Return<T> => {
   const isMounted = useRef(false);
