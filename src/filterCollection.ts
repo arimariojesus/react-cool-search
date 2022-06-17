@@ -14,7 +14,7 @@ export const filterCollection = <T>(
       .toString()
       .toLocaleLowerCase()
       .normalize('NFD')
-      .replace(/\[\u0300-\u036f]/, '');
+      .replace(/[\u0300-\u036f]/g, '');
 
   const normalizedQuery = getNormalizedValue(query);
 
