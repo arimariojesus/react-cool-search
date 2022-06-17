@@ -67,4 +67,11 @@ describe('useSearch', () => {
     } = renderHelper({ initialQuery: 'foo 1' });
     expect(filteredCollection).toEqual([collection[0]]);
   });
+
+  it('should returns empty collection if an initial query is passed and empty fields', () => {
+    const {
+      current: { data: filteredCollection },
+    } = renderHelper({ initialQuery: 'foo', fields: [] });
+    expect(filteredCollection).toEqual([]);
+  });
 });
