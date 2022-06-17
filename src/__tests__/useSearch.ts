@@ -61,6 +61,13 @@ describe('useSearch', () => {
     expect(filteredCollection).toEqual(collection);
   });
 
+  it('should return empty array if an empty collection is passed', () => {
+    const {
+      current: { data: filteredCollection },
+    } = renderHook(() => useSearch([])).result;
+    expect(filteredCollection).toEqual([]);
+  });
+
   it('should returns filtered collection if initial query is passed', () => {
     const {
       current: { data: filteredCollection },
