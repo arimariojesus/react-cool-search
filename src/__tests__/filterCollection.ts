@@ -34,6 +34,11 @@ describe('filterCollection', () => {
     expect(filteredCollection).toEqual(collection);
   });
 
+  it('should return an empty array if an empty collection is passed', () => {
+    const filteredCollection = filterCollection('', []);
+    expect(filteredCollection).toEqual([]);
+  });
+
   it('should ignore accents, uppercase or lowercase', () => {
     let filteredCollection = filterCollection('ANCIAO', collection, ['foo']);
     expect(filteredCollection).toEqual([collection[2]]);
