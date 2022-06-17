@@ -39,6 +39,23 @@ describe('filterCollection', () => {
     expect(filteredCollection).toEqual([]);
   });
 
+  it('should search on the correct fields', () => {
+    const query = '1';
+
+    let filteredCollection = filterCollection(query, collection, ['value']);
+    expect(filteredCollection).toEqual([collection[1], collection[2]]);
+
+    filteredCollection = filterCollection(query, collection, ['foo']);
+    expect(filteredCollection).toEqual([collection[0]]);
+
+    filteredCollection = filterCollection(query, collection, [
+      'foo',
+      'bar',
+      'value',
+    ]);
+    expect(filteredCollection).toEqual(collection);
+  });
+
   it('should ignore accents, uppercase or lowercase', () => {
     let filteredCollection = filterCollection('ANCIAO', collection, ['foo']);
     expect(filteredCollection).toEqual([collection[2]]);
