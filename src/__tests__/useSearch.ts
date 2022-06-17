@@ -60,4 +60,11 @@ describe('useSearch', () => {
     } = renderHelper();
     expect(filteredCollection).toEqual(collection);
   });
+
+  it('should returns filtered collection if initial query is passed', () => {
+    const {
+      current: { data: filteredCollection },
+    } = renderHelper({ initialQuery: 'foo 1' });
+    expect(filteredCollection).toEqual([collection[0]]);
+  });
 });
