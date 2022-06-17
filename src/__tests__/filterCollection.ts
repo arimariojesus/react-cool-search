@@ -33,4 +33,12 @@ describe('filterCollection', () => {
     const filteredCollection = filterCollection('   ', collection);
     expect(filteredCollection).toEqual(collection);
   });
+
+  it('should ignore accents, uppercase or lowercase', () => {
+    let filteredCollection = filterCollection('ANCIAO', collection, ['foo']);
+    expect(filteredCollection).toEqual([collection[2]]);
+
+    filteredCollection = filterCollection('mascavo', collection, ['bar']);
+    expect(filteredCollection).toEqual([collection[2]]);
+  });
 });
