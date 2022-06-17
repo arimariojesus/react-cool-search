@@ -53,4 +53,11 @@ describe('useSearch', () => {
       debounce,
     );
   });
+
+  it('should returns entire collection if query is not passed', () => {
+    const {
+      current: { data: filteredCollection },
+    } = renderHelper();
+    expect(filteredCollection).toEqual(collection);
+  });
 });
