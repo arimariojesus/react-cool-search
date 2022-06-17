@@ -74,4 +74,11 @@ describe('useSearch', () => {
     } = renderHelper({ initialQuery: 'foo', fields: [] });
     expect(filteredCollection).toEqual([]);
   });
+
+  it('should returns filtered collection correctly if fields is passed', () => {
+    const {
+      current: { data: filteredCollection },
+    } = renderHelper({ initialQuery: '2', fields: ['value'] });
+    expect(filteredCollection).toEqual([collection[1]]);
+  });
 });
