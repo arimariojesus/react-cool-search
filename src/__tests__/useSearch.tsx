@@ -1,3 +1,4 @@
+import { fireEvent, render } from '@testing-library/react';
 import { renderHook, act } from '@testing-library/react-hooks';
 
 import * as _debounce from '../debounce';
@@ -34,7 +35,7 @@ const renderHelper = (options: UseSearchOptions = {}) => {
 
 describe('useSearch', () => {
   beforeEach(() => {
-    jest.clearAllTimers();
+    // jest.clearAllTimers();
     mockDebounce.default.mockClear();
   });
 
@@ -103,5 +104,27 @@ describe('useSearch', () => {
     });
 
     expect(result.current.query).toBe(newQuery);
+  });
+
+  it('should sets "query" based on handleChange', () => {
+    const query = 'any_query';
+    const result = renderHelper();
+    act(() => {
+      result.current.handleChange(query);
+    });
+    expect(result.current.query).toBe(query);
+
+    const Input = () => (
+      <input aria-label="cost-input" onChange={result.current.handleChange} />
+    );
+
+    const { getByLabelText } = render(<Input />);
+    const input = getByLabelText('cost-input');
+
+    const value = 'any_value';
+    act(() => {
+      fireEvent.change(input, { target: { value } });
+    });
+    expect(result.current.query).toBe(value);
   });
 });
