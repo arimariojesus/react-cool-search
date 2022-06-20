@@ -7,6 +7,7 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 [![npm version](https://img.shields.io/npm/v/react-cool-search)](https://www.npmjs.com/package/react-cool-search)
 [![npm downloads](https://img.shields.io/npm/dm/react-cool-search)](https://www.npmtrends.com/react-cool-search)
 [![npm all downloads](https://img.shields.io/npm/dt/react-cool-search)](https://www.npmtrends.com/react-cool-search)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-cool-search?label=gzip%20size)](https://bundlephobia.com/result?p=react-cool-search)
 [![MIT License](https://img.shields.io/github/license/arimariojesus/react-cool-search)](https://github.com/arimariojesus/react-cool-search/blob/main/LICENSE)
 [![GitHub Repo stars](https://img.shields.io/github/stars/arimariojesus/react-cool-search?style=social)](https://github.com/arimariojesus/react-cool-search)
 
