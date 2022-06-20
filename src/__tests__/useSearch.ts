@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 
 import * as _debounce from '../debounce';
 import useSearch, { Options } from '../useSearch';
@@ -87,5 +87,21 @@ describe('useSearch', () => {
       current: { data: filteredCollection },
     } = renderHelper({ initialQuery: '1', fields: ['value'] });
     expect(filteredCollection).toEqual([collection[1]]);
+  });
+
+  it('should return "query" correctly', () => {
+    let result = renderHelper();
+    expect(result.current.query).toBe('');
+
+    const defaultQuery = 'Hello';
+    result = renderHelper({ initialQuery: defaultQuery });
+    expect(result.current.query).toBe(defaultQuery);
+
+    const newQuery = 'new_query';
+    act(() => {
+      result.current.setQuery(newQuery);
+    });
+
+    expect(result.current.query).toBe(newQuery);
   });
 });
