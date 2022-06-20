@@ -10,11 +10,6 @@ import pkg from './package.json';
 
 const isDev = process.env.BUILD !== 'production';
 
-const babelRuntimeVersion = pkg.dependencies['@babel/runtime'].replace(
-  /^[^0-9]*/,
-  '',
-);
-
 const makeExternalPredicate = external =>
   !external.length
     ? () => false
@@ -39,14 +34,7 @@ const extensions = ['.js', '.ts', '.tsx', '.json'];
 const plugins = [
   resolve({ extensions }),
   commonjs(),
-  babel({
-    exclude: 'node_modules/**',
-    plugins: [
-      ['@babel/plugin-transform-runtime', { version: babelRuntimeVersion }],
-    ],
-    babelHelpers: 'runtime',
-    extensions,
-  }),
+  babel({ exclude: 'node_modules/**', extensions }),
   replace({
     'process.env.NODE_ENV': JSON.stringify(
       isDev ? 'development' : 'production',
@@ -56,7 +44,7 @@ const plugins = [
   copy({
     targets: [
       {
-        src: 'src/use-search.d.ts',
+        src: 'src/react-cool-search.d.ts',
         dest: pkg.types.split('/')[0],
         rename: 'index.d.ts',
       },
@@ -68,8 +56,5 @@ export default {
   input: 'src',
   output: isDev ? [esm] : [cjs, esm],
   plugins,
-  external: makeExternalPredicate([
-    ...Object.keys(pkg.peerDependencies),
-    ...Object.keys(pkg.dependencies),
-  ]),
+  external: makeExternalPredicate([...Object.keys(pkg.peerDependencies)]),
 };
