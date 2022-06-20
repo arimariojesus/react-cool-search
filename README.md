@@ -1,15 +1,23 @@
-# <em><b>USE-SEARCH</b></em>
+# <em><b>REACT-COOL-SEARCH</b></em>
 
 This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that provides a simples way to implement search/filter functionality on a list of objects based on their properties in React Components.
 
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/arimariojesus/react-cool-search/Release)](https://github.com/arimariojesus/react-cool-search/actions?query=workflow%3ARelease)
+[![Coverage Status](https://img.shields.io/coveralls/github/arimariojesus/react-cool-search/main)](https://coveralls.io/github/arimariojesus/react-cool-search?branch=main)
+[![npm version](https://img.shields.io/npm/v/react-cool-search)](https://www.npmjs.com/package/react-cool-search)
+[![npm downloads](https://img.shields.io/npm/dm/react-cool-search)](https://www.npmtrends.com/react-cool-search)
+[![npm all downloads](https://img.shields.io/npm/dt/react-cool-search)](https://www.npmtrends.com/react-cool-search)
+[![MIT License](https://img.shields.io/github/license/arimariojesus/react-cool-search)](https://github.com/arimariojesus/react-cool-search/blob/main/LICENSE)
+[![GitHub Repo stars](https://img.shields.io/github/stars/arimariojesus/react-cool-search?style=social)](https://github.com/arimariojesus/react-cool-search)
+
 ## Installation
 
-This package is distributed via [npm](https://www.npmjs.com/package/use-search).
+This package is distributed via [npm](https://www.npmjs.com/package/react-cool-search).
 
 ```sh
-$ yarn add use-search
+$ yarn add react-cool-search
 # or
-$ npm install --save use-search
+$ npm install --save react-cool-search
 ```
 
 ## Usage
@@ -17,7 +25,7 @@ $ npm install --save use-search
 Common use case.
 
 ```tsx
-import useSearch from 'use-search';
+import useSearch from 'react-cool-search';
 
 interface User {
   id: number;
@@ -56,7 +64,7 @@ const Users = () => {
 Definig fields to search.
 
 ```tsx
-import useSearch from 'use-search';
+import useSearch from 'react-cool-search';
 
 interface User {
   id: number;
@@ -100,7 +108,7 @@ const Users = () => {
 const obj = useSearch<T>(collection: T[], options?: Options);
 ```
 
-`use-search` provides a hook as default export; it takes two parameters:
+`react-cool-search` provides a hook as default export; it takes two parameters:
 
 | Key          | Type   | Default | Description                                    |
 | ------------ | ------ | ------- | ---------------------------------------------- |
