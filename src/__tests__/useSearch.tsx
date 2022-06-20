@@ -127,4 +127,32 @@ describe('useSearch', () => {
     });
     expect(result.current.query).toBe(value);
   });
+
+  it('should return "status" correctly', () => {
+    let result = renderHelper();
+    expect(result.current.status).toBe('IDLE');
+
+    result = renderHelper({ initialQuery: 'foo' });
+    expect(result.current.status).toBe('OK');
+
+    act(() => {
+      result.current.setQuery('bar');
+    });
+    expect(result.current.status).toBe('OK');
+
+    act(() => {
+      result.current.setQuery('any_query');
+    });
+    expect(result.current.status).toBe('NOT_FOUND');
+
+    act(() => {
+      result.current.setQuery('');
+    });
+    expect(result.current.status).toBe('IDLE');
+
+    act(() => {
+      result.current.setQuery('   ');
+    });
+    expect(result.current.status).toBe('IDLE');
+  });
 });
