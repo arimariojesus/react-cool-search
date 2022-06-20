@@ -1,5 +1,5 @@
 {
-  "name": "use-search",
+  "name": "react-cool-search",
   "version": "1.1.0",
   "description": "React hook for highly-performant search objects on a list.",
   "license": "MIT",
