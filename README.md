@@ -1,4 +1,7 @@
 # <em><b>REACT-COOL-SEARCH</b></em>
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that provides a simples way to implement search/filter functionality on a list of objects based on their properties in React Components.
 
@@ -141,3 +144,23 @@ The hook returns an object with the following properies:
 ## License
 
 MIT © [Arimário Jesus](https://github.com/arimariojesus)
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://www.linkedin.com/in/arimariojesus"><img src="https://avatars.githubusercontent.com/u/64603070?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ari Jesus</b></sub></a><br /><a href="https://github.com/arimariojesus/react-cool-search/commits?author=arimariojesus" title="Code">💻</a> <a href="https://github.com/arimariojesus/react-cool-search/commits?author=arimariojesus" title="Tests">⚠️</a> <a href="https://github.com/arimariojesus/react-cool-search/commits?author=arimariojesus" title="Documentation">📖</a> <a href="#maintenance-arimariojesus" title="Maintenance">🚧</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
