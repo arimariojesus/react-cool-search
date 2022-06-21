@@ -1,4 +1,4 @@
-declare module 'use-search' {
+declare module 'react-cool-search' {
   import React, { ChangeEvent, Dispatch } from 'react';
 
   export type Status = 'IDLE' | 'OK' | 'NOT_FOUND';
