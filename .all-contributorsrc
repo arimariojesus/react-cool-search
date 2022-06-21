@@ -1,0 +1,27 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "arimariojesus",
+      "name": "Ari Jesus",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64603070?v=4",
+      "profile": "http://www.linkedin.com/in/arimariojesus",
+      "contributions": [
+        "code",
+        "test",
+        "doc",
+        "maintenance"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "react-cool-search",
+  "projectOwner": "arimariojesus",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
