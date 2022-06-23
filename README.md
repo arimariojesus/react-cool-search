@@ -1,7 +1,4 @@
 # <em><b>REACT-COOL-SEARCH</b></em>
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that provides a simples way to implement search/filter functionality on a list of objects based on their properties in React Components.
 
@@ -12,6 +9,7 @@ This is a React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom
 [![npm all downloads](https://img.shields.io/npm/dt/react-cool-search)](https://www.npmtrends.com/react-cool-search)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-cool-search?label=gzip%20size)](https://bundlephobia.com/result?p=react-cool-search)
 [![MIT License](https://img.shields.io/github/license/arimariojesus/react-cool-search)](https://github.com/arimariojesus/react-cool-search/blob/main/LICENSE)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 [![GitHub Repo stars](https://img.shields.io/github/stars/arimariojesus/react-cool-search?style=social)](https://github.com/arimariojesus/react-cool-search)
 
 ## Installation
