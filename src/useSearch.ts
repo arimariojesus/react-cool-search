@@ -34,12 +34,22 @@ export interface Return<T> {
   setQuery: Dispatch<React.SetStateAction<string>>;
 }
 
+const getFields = <T>(value: T[]): Fields<T> => {
+  const object = Array.isArray(value) && value.length ? value[0] : {};
+  return Object.keys(object) as Fields<T>;
+};
+
+export const invalidCollectionErr =
+  '💡 react-cool-search: Please provide an valid collection. Collection must be an Array';
+export const invalidFieldsErr =
+  '💡 react-cool-search: Please provide valid fields. Fields must be an Array';
+
 const useSearch = <T>(
   collection: T[],
   {
     debounce = 300,
     initialQuery = '',
-    fields = Object.keys(collection[0] || []) as Fields<T>,
+    fields = getFields(collection),
   }: Options<T> = {},
 ): Return<T> => {
   const isMounted = useRef(false);
@@ -80,13 +90,15 @@ const useSearch = <T>(
   );
 
   useEffect(() => {
-    if (collectionRef.current && fieldsRef.current) {
-      debouncedFilterCollection(
-        query,
-        collectionRef.current,
-        fieldsRef.current,
-      );
+    if (!collectionRef.current) {
+      console.error(invalidCollectionErr);
+      return;
     }
+    if (!fieldsRef.current) {
+      console.error(invalidFieldsErr);
+      return;
+    }
+    debouncedFilterCollection(query, collectionRef.current, fieldsRef.current);
   }, [query, collectionRef, fieldsRef, debouncedFilterCollection]);
 
   useEffect(() => {
