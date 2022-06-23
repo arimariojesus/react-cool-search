@@ -2,7 +2,11 @@ import { fireEvent, render } from '@testing-library/react';
 import { renderHook, act } from '@testing-library/react-hooks';
 
 import * as _debounce from '../debounce';
-import useSearch, { Options } from '../useSearch';
+import useSearch, {
+  Options,
+  invalidCollectionErr,
+  invalidFieldsErr,
+} from '../useSearch';
 
 jest.useFakeTimers('modern');
 jest.mock('../debounce');
@@ -67,6 +71,24 @@ describe('useSearch', () => {
       current: { data: filteredCollection },
     } = renderHook(() => useSearch([])).result;
     expect(filteredCollection).toEqual([]);
+  });
+
+  it('should throw error if an invalid collection is passed', () => {
+    console.error = jest.fn();
+
+    const invalidValue = null as unknown as Array<any>;
+    renderHook(() => useSearch(invalidValue));
+    expect(console.error).toHaveBeenCalled();
+    expect(console.error).toHaveBeenCalledWith(invalidCollectionErr);
+  });
+
+  it('should throw error if invalid fields is passed', () => {
+    console.error = jest.fn();
+
+    const invalidValue = null as unknown as Array<keyof ITest>;
+    renderHelper({ fields: invalidValue });
+    expect(console.error).toHaveBeenCalled();
+    expect(console.error).toHaveBeenCalledWith(invalidFieldsErr);
   });
 
   it('should returns filtered collection if initial query is passed', () => {
