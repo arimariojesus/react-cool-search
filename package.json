@@ -52,8 +52,10 @@
     "semantic-release": "semantic-release --branches main"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": "eslint --fix",
-    "**/*": "prettier -w -u"
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier -w -u"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
