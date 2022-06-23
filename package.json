@@ -1,6 +1,6 @@
 {
   "name": "react-cool-search",
-  "version": "0.0.0-development",
+  "version": "1.0.4",
   "description": "React hook for highly-performant search objects on a list.",
   "license": "MIT",
   "homepage": "https://github.com/arimariojesus/react-cool-search",
