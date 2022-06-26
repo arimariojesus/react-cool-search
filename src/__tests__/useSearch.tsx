@@ -39,7 +39,7 @@ const renderHelper = (options: UseSearchOptions = {}) => {
 
 describe('useSearch', () => {
   beforeEach(() => {
-    // jest.clearAllTimers();
+    jest.clearAllTimers();
     mockDebounce.default.mockClear();
   });
 
@@ -85,7 +85,7 @@ describe('useSearch', () => {
   it('should throw error if invalid fields is passed', () => {
     console.error = jest.fn();
 
-    const invalidValue = null as unknown as Array<keyof ITest>;
+    const invalidValue = 42 as unknown as Array<keyof ITest>;
     renderHelper({ fields: invalidValue });
     expect(console.error).toHaveBeenCalled();
     expect(console.error).toHaveBeenCalledWith(invalidFieldsErr);
