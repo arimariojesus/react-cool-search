@@ -23,7 +23,7 @@ type SearchState<T> = {
 export interface Options<T> {
   debounce?: number;
   initialQuery?: string;
-  fields?: Fields<T>;
+  fields?: Fields<T> | null;
 }
 
 export interface Return<T> {
@@ -34,23 +34,14 @@ export interface Return<T> {
   setQuery: Dispatch<React.SetStateAction<string>>;
 }
 
-const getFields = <T>(value: T[]): Fields<T> => {
-  const object = Array.isArray(value) && value.length ? value[0] : {};
-  return Object.keys(object) as Fields<T>;
-};
-
 export const invalidCollectionErr =
   '💡 react-cool-search: Please provide an valid collection. Collection must be an Array';
 export const invalidFieldsErr =
-  '💡 react-cool-search: Please provide valid fields. Fields must be an Array';
+  '💡 react-cool-search: Please provide valid fields. Fields must be an Array or null';
 
 const useSearch = <T>(
   collection: T[],
-  {
-    debounce = 300,
-    initialQuery = '',
-    fields = getFields(collection),
-  }: Options<T> = {},
+  { debounce = 300, initialQuery = '', fields = null }: Options<T> = {},
 ): Return<T> => {
   const isMounted = useRef(false);
   const [query, setQuery] = useState(initialQuery);
@@ -71,7 +62,7 @@ const useSearch = <T>(
   );
 
   const debouncedFilterCollection = useCallback(
-    _debounce((query: string, collection: T[], fields: Fields<T>) => {
+    _debounce((query: string, collection: T[], fields: Fields<T> | null) => {
       if (isMounted.current) {
         if (!query || hasOnlySpaces(query)) {
           setSearch({ data: collection, status: 'IDLE' });
@@ -94,7 +85,7 @@ const useSearch = <T>(
       console.error(invalidCollectionErr);
       return;
     }
-    if (!fieldsRef.current) {
+    if (fieldsRef.current !== null && !Array.isArray(fieldsRef.current)) {
       console.error(invalidFieldsErr);
       return;
     }

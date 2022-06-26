@@ -1,25 +1,27 @@
 import { hasOnlySpaces } from './hasOnlySpaces';
 
+const getNormalizedValue = (value: any): string =>
+  value
+    .toString()
+    .toLocaleLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
 export const filterCollection = <T>(
   query: string,
   collection: T[],
-  fields: Array<keyof T> = Object.keys(collection[0] || []) as Array<keyof T>,
+  fields: Array<keyof T> | null = null,
 ): T[] => {
   if (!query || hasOnlySpaces(query)) {
     return collection;
   }
 
-  const getNormalizedValue = (value: any): string =>
-    value
-      .toString()
-      .toLocaleLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '');
-
   const normalizedQuery = getNormalizedValue(query);
+  const relevantFields = (obj: T) =>
+    fields || (Object.keys(obj) as Array<keyof T>);
 
   return collection.filter(item => {
-    const someFieldMatches = fields.some(field => {
+    const someFieldMatches = relevantFields(item).some(field => {
       const value = item[field];
       if (!!value && (typeof value === 'string' || typeof value === 'number')) {
         return getNormalizedValue(value).includes(normalizedQuery);
