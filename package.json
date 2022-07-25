@@ -42,8 +42,6 @@
     "build:dev": "yarn clean:dist && rollup -c",
     "build:prod": "yarn clean:dist && yarn clean:size && rollup -c --environment BUILD:production",
     "build:demo": "cd app && yarn && yarn build",
-    "preversion": "run-s lint test build:prod",
-    "postversion": "git push --follow-tags --no-verify && npm publish && yarn clean:dist && yarn clean:size",
     "clean:dist": "rimraf dist",
     "clean:size": "rimraf .size-snapshot.json",
     "clean:cov": "rimraf coverage",
