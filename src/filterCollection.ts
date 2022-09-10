@@ -1,6 +1,6 @@
 import { hasOnlySpaces } from './hasOnlySpaces';
 
-const getNormalizedValue = (value: any): string =>
+const normalizeValue = (value: any): string =>
   value
     .toString()
     .toLocaleLowerCase()
@@ -16,15 +16,25 @@ export const filterCollection = <T>(
     return collection;
   }
 
-  const normalizedQuery = getNormalizedValue(query);
-  const relevantFields = (obj: T) =>
-    fields || (Object.keys(obj) as Array<keyof T>);
+  const relevantFields = (obj: T) => {
+    if (Array.isArray(fields)) {
+      return fields;
+    }
+
+    if (obj instanceof Object) {
+      return Object.keys(obj) as Array<keyof T>;
+    }
+
+    return [];
+  };
+
+  const normalizedQuery = normalizeValue(query);
 
   return collection.filter(item => {
     const someFieldMatches = relevantFields(item).some(field => {
       const value = item[field];
       if (!!value && (typeof value === 'string' || typeof value === 'number')) {
-        return getNormalizedValue(value).includes(normalizedQuery);
+        return normalizeValue(value).includes(normalizedQuery);
       }
       return false;
     });
