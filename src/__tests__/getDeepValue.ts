@@ -29,4 +29,12 @@ describe('filterCollection', () => {
     const invalidKey = 'invalid' as never;
     expect(getDeepValue(mockObj, invalidKey)).toEqual(undefined);
   });
+
+  it('should return correct deep values', () => {
+    expect(getDeepValue(mockObj, 'hello.world')).toEqual(mockObj.hello.world);
+    expect(getDeepValue(mockObj, 'foo.bar')).toEqual(mockObj.foo.bar);
+    expect(getDeepValue(mockObj, 'foo.bar.baz')).toEqual(mockObj.foo.bar.baz);
+    const invalidKey = 'foo.faa' as never;
+    expect(getDeepValue(mockObj, invalidKey)).toEqual(undefined);
+  });
 });
