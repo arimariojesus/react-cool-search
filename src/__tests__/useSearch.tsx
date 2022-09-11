@@ -3,7 +3,6 @@ import { renderHook, act } from '@testing-library/react-hooks';
 
 import * as _debounce from '../debounce';
 import useSearch, {
-  Options,
   invalidCollectionErr,
   invalidFieldsErr,
 } from '../useSearch';
@@ -18,6 +17,9 @@ interface ITest {
   foo: string;
   bar: string;
   value?: number;
+  deep?: {
+    value: string;
+  };
 }
 
 const collection: ITest[] = [
@@ -29,11 +31,13 @@ const collection: ITest[] = [
     foo: 'foo 2',
     bar: 'bar 2',
     value: 1,
+    deep: {
+      value: 'deep foo value',
+    },
   },
 ];
 
-type UseSearchOptions = Options<ITest>;
-const renderHelper = (options: UseSearchOptions = {}) => {
+const renderHelper = (options = {}) => {
   return renderHook(() => useSearch(collection, options)).result;
 };
 
@@ -64,13 +68,6 @@ describe('useSearch', () => {
       current: { data: filteredCollection },
     } = renderHelper();
     expect(filteredCollection).toEqual(collection);
-  });
-
-  it('should return empty array if an empty collection is passed', () => {
-    const {
-      current: { data: filteredCollection },
-    } = renderHook(() => useSearch([])).result;
-    expect(filteredCollection).toEqual([]);
   });
 
   it('should throw error if an invalid collection is passed', () => {
@@ -106,10 +103,14 @@ describe('useSearch', () => {
   });
 
   it('should returns filtered collection correctly if fields is passed', () => {
-    const {
-      current: { data: filteredCollection },
-    } = renderHelper({ initialQuery: '1', fields: ['value'] });
-    expect(filteredCollection).toEqual([collection[1]]);
+    let result = renderHelper({ initialQuery: '1', fields: ['value'] });
+    expect(result.current.data).toEqual([collection[1]]);
+
+    result = renderHelper({ initialQuery: 'foo', fields: ['foo'] });
+    expect(result.current.data).toEqual(collection);
+
+    result = renderHelper({ initialQuery: 'foo', fields: ['deep.value'] });
+    expect(result.current.data).toEqual([collection[1]]);
   });
 
   it('should return "query" correctly', () => {
