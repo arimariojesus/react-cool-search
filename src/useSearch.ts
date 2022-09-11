@@ -10,20 +10,20 @@ import React, {
 import _debounce from './debounce';
 import { filterCollection } from './filterCollection';
 import { hasOnlySpaces } from './hasOnlySpaces';
+import { DeepKey } from './types';
 import useLatest from './useLatest';
 
 export type Status = 'IDLE' | 'OK' | 'NOT_FOUND';
-type Fields<T> = Array<keyof T>;
 
 type SearchState<T> = {
   status: Status;
   data: T[];
 };
 
-export interface Options<T> {
+export interface Options<T extends Record<string, any>, K extends string> {
   debounce?: number;
   initialQuery?: string;
-  fields?: Fields<T> | null;
+  fields?: DeepKey<T, K>[] | null;
 }
 
 export interface Return<T> {
@@ -39,9 +39,9 @@ export const invalidCollectionErr =
 export const invalidFieldsErr =
   '💡 react-cool-search: Please provide valid fields. Fields must be an Array or null';
 
-const useSearch = <T>(
+const useSearch = <T extends Record<string, any>, K extends string = string>(
   collection: T[],
-  { debounce = 300, initialQuery = '', fields = null }: Options<T> = {},
+  { debounce = 300, initialQuery = '', fields = null }: Options<T, K> = {},
 ): Return<T> => {
   const isMounted = useRef(false);
   const [query, setQuery] = useState(initialQuery);
@@ -62,21 +62,28 @@ const useSearch = <T>(
   );
 
   const debouncedFilterCollection = useCallback(
-    _debounce((query: string, collection: T[], fields: Fields<T> | null) => {
-      if (isMounted.current) {
-        if (!query || hasOnlySpaces(query)) {
-          setSearch({ data: collection, status: 'IDLE' });
-          return;
-        }
+    _debounce(
+      (query: string, collection: T[], fields: DeepKey<T, K>[] | null) => {
+        if (isMounted.current) {
+          if (!query || hasOnlySpaces(query)) {
+            setSearch({ data: collection, status: 'IDLE' });
+            return;
+          }
 
-        const filteredCollection = filterCollection(query, collection, fields);
-        if (filteredCollection.length) {
-          setSearch({ data: filteredCollection, status: 'OK' });
-          return;
+          const filteredCollection = filterCollection(
+            query,
+            collection,
+            fields,
+          );
+          if (filteredCollection.length) {
+            setSearch({ data: filteredCollection, status: 'OK' });
+            return;
+          }
+          setSearch({ data: [], status: 'NOT_FOUND' });
         }
-        setSearch({ data: [], status: 'NOT_FOUND' });
-      }
-    }, debounce),
+      },
+      debounce,
+    ),
     [debounce],
   );
 
