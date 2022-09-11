@@ -6,6 +6,15 @@ interface ITest {
   value?: number;
 }
 
+interface IDeepTest {
+  deep: {
+    prop: {
+      deepProp: string;
+    };
+    otherProp?: string;
+  };
+}
+
 const collection: ITest[] = [
   {
     foo: 'foo 1',
@@ -20,6 +29,24 @@ const collection: ITest[] = [
     foo: 'açúcar ancião',
     bar: 'MASCAVO',
     value: 123,
+  },
+];
+
+const deepCollection: IDeepTest[] = [
+  {
+    deep: {
+      prop: {
+        deepProp: 'deep value',
+      },
+    },
+  },
+  {
+    deep: {
+      prop: {
+        deepProp: 'deepest value',
+      },
+      otherProp: 'deep value',
+    },
   },
 ];
 
@@ -62,5 +89,23 @@ describe('filterCollection', () => {
 
     filteredCollection = filterCollection('mascavo', collection, ['bar']);
     expect(filteredCollection).toEqual([collection[2]]);
+  });
+
+  it('should search on the correct deep fields', () => {
+    let filteredCollection = filterCollection('deep value', deepCollection, [
+      'deep.prop.deepProp',
+    ]);
+    expect(filteredCollection).toEqual([deepCollection[0]]);
+
+    filteredCollection = filterCollection('deepest value', deepCollection, [
+      'deep.prop.deepProp',
+    ]);
+    expect(filteredCollection).toEqual([deepCollection[1]]);
+
+    filteredCollection = filterCollection('deep value', deepCollection, [
+      'deep.prop.deepProp',
+      'deep.otherProp',
+    ]);
+    expect(filteredCollection).toEqual(deepCollection);
   });
 });
