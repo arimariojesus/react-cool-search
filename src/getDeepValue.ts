@@ -9,6 +9,6 @@ export const getDeepValue = <
 ): DeepReturn<T, K> => {
   const paths = path.split('.');
   return paths.reduce<DeepReturn<T, K>>((acc, curr) => {
-    return acc[curr];
+    return acc?.[curr];
   }, obj as DeepReturn<T, K>);
 };
