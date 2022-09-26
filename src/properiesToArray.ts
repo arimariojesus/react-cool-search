@@ -5,6 +5,7 @@ export const propertiesToArray = (obj: object): string[] => {
   const addDelimiter = (a: string, b: string) => (a ? `${a}.${b}` : b);
 
   const paths = (obj: Record<string, any> = {}, head = ''): string[] => {
+    if (!obj) return [];
     return Object.entries(obj).reduce<string[]>((product, [key, value]) => {
       const fullPath = addDelimiter(head, key);
       return isObject(value)
