@@ -27,4 +27,11 @@ describe('propertiesToArray', () => {
     const paths = propertiesToArray(objMock);
     expect(paths).toEqual(pathsMock);
   });
+
+  it('should return an empty array when an invalid value is passed', () => {
+    let paths = propertiesToArray(undefined as unknown as object);
+    expect(paths).toEqual([]);
+    paths = propertiesToArray(null as unknown as object);
+    expect(paths).toEqual([]);
+  });
 });
