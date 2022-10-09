@@ -19,6 +19,6 @@ export type DeepReturn<T, K extends string = string> = K extends keyof T
   ? T[K]
   : K extends `${infer TKey}.${infer Rest}`
   ? TKey extends keyof T
-    ? DeepReturn<T[TKey], Rest>
+    ? DeepReturn<Exclude<T[TKey], undefined>, Rest>
     : undefined
   : undefined;
