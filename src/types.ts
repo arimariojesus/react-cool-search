@@ -1,10 +1,4 @@
-type ValidValues =
-  | string
-  | number
-  | Record<string, any>
-  | Array<any>
-  | undefined
-  | null;
+type ValidValues = string | number | object | Array<any> | undefined | null;
 
 export type DeepKey<
   T extends Record<string, any>,
@@ -15,7 +9,7 @@ export type DeepKey<
     : never
   : K extends `${infer TKey}.${infer Rest}`
   ? T[TKey] extends ValidValues
-    ? DeepKey<T[TKey], Rest> extends never
+    ? DeepKey<Exclude<T[TKey], undefined>, Rest> extends never
       ? never
       : K
     : never
