@@ -20,7 +20,7 @@ type SearchState<T> = {
   data: T[];
 };
 
-export interface Options<T extends Record<string, any>, K extends string> {
+export interface Options<T extends object, K extends string> {
   debounce?: number;
   initialQuery?: string;
   fields?: DeepKey<T, K>[] | null;
@@ -39,7 +39,7 @@ export const invalidCollectionErr =
 export const invalidFieldsErr =
   '💡 react-cool-search: Please provide valid fields. Fields must be an Array or null';
 
-const useSearch = <T extends Record<string, any>, K extends string = string>(
+const useSearch = <T extends object, K extends string>(
   collection: T[],
   { debounce = 300, initialQuery = '', fields = null }: Options<T, K> = {},
 ): Return<T> => {
