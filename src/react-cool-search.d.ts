@@ -3,12 +3,27 @@ declare module 'react-cool-search' {
 
   export type Status = 'IDLE' | 'OK' | 'NOT_FOUND';
 
-  type Fields<T> = Array<keyof T>;
+  type ValidValues = string | number | object | Array<any> | undefined | null;
 
-  export interface Options<T> {
+  type DeepKey<
+    T extends Record<string, any>,
+    K extends string = string,
+  > = K extends keyof T
+    ? T[K] extends ValidValues
+      ? K
+      : never
+    : K extends `${infer TKey}.${infer Rest}`
+    ? T[TKey] extends ValidValues
+      ? DeepKey<Exclude<T[TKey], undefined>, Rest> extends never
+        ? never
+        : K
+      : never
+    : never;
+
+  export interface Options<T extends object, K extends string> {
     debounce?: number;
     initialQuery?: string;
-    fields?: Fields<T>;
+    fields?: DeepKey<T, K> | null;
   }
 
   export interface Return<T> {
@@ -19,7 +34,10 @@ declare module 'react-cool-search' {
     setQuery: Dispatch<React.SetStateAction<string>>;
   }
 
-  const useSearch: <T>(collection: T[], options?: Options<T>) => Return<T>;
+  const useSearch: <T extends object, K extends string>(
+    collection: T[],
+    options?: Options<T, K>,
+  ) => Return<T>;
 
   export default useSearch;
 }
