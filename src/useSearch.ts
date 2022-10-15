@@ -39,10 +39,18 @@ export const invalidCollectionErr =
 export const invalidFieldsErr =
   '💡 react-cool-search: Please provide valid fields. Fields must be an Array or null';
 
+const defaultOptions = {
+  debounce: 300,
+  initialQuery: '',
+  fields: null,
+};
+
 const useSearch = <T extends object, K extends string>(
   collection: T[],
-  { debounce = 300, initialQuery = '', fields = null }: Options<T, K> = {},
+  options?: Options<T, K>,
 ): Return<T> => {
+  const { debounce, fields, initialQuery } = { ...defaultOptions, ...options };
+
   const isMounted = useRef(false);
   const [query, setQuery] = useState(initialQuery);
   const [search, setSearch] = useState<SearchState<T>>({
