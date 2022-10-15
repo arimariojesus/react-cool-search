@@ -23,7 +23,7 @@ declare module 'react-cool-search' {
   export interface Options<T extends object, K extends string> {
     debounce?: number;
     initialQuery?: string;
-    fields?: DeepKey<T, K> | null;
+    fields?: DeepKey<T, K>[] | null;
   }
 
   export interface Return<T> {
